@@ -1,0 +1,12 @@
+{
+  "name": "justinbarias-skills",
+  "version": "0.1.0",
+  "description": "Justin Barias's agent skills: Codex + LiteLLM gateway setup and repository agent-harness maintenance.",
+  "author": {
+    "name": "Justin Barias"
+  },
+  "homepage": "https://github.com/justinbarias/skills",
+  "repository": "https://github.com/justinbarias/skills",
+  "license": "Apache-2.0",
+  "skills": "./skills"
+}

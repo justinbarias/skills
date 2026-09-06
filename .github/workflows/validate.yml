@@ -1,0 +1,23 @@
+name: Validate skills
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate skill frontmatter, names, and reference links
+        run: node scripts/validate-skills.js
+      - name: Validate manifest versions agree
+        run: node scripts/validate-versions.js
+      - name: Syntax-check bundled scripts
+        run: |
+          python3 -m py_compile skills/*/scripts/*.py
+          for f in skills/*/scripts/*.sh; do bash -n "$f"; done

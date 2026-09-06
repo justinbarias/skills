@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "justinbarias",
+  "description": "Justin Barias's agent skills: Codex + LiteLLM gateway setup and repository agent-harness maintenance.",
+  "owner": {
+    "name": "Justin Barias",
+    "url": "https://github.com/justinbarias"
+  },
+  "plugins": [
+    {
+      "name": "justinbarias-skills",
+      "version": "0.1.0",
+      "source": {
+        "source": "github",
+        "repo": "justinbarias/skills"
+      },
+      "description": "Skills for configuring Codex against a LiteLLM gateway and for bootstrapping or maintaining a repo's agent harness (AGENTS.md, knowledge maps, plans).",
+      "homepage": "https://github.com/justinbarias/skills",
+      "license": "Apache-2.0",
+      "keywords": ["skills", "agents", "codex", "litellm", "agents-md", "harness"]
+    }
+  ]
+}

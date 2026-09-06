@@ -1,0 +1,25 @@
+{
+  "name": "justinbarias-skills",
+  "version": "0.1.0",
+  "description": "Justin Barias's agent skills: Codex + LiteLLM gateway setup and repository agent-harness maintenance.",
+  "author": {
+    "name": "Justin Barias",
+    "url": "https://github.com/justinbarias"
+  },
+  "homepage": "https://github.com/justinbarias/skills",
+  "repository": "https://github.com/justinbarias/skills",
+  "license": "Apache-2.0",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Justin Barias Skills",
+    "shortDescription": "Codex + LiteLLM gateway setup, repo agent-harness bootstrap and maintenance.",
+    "longDescription": "Two skills: codex-litellm-setup wires the Codex CLI to a LiteLLM gateway (config.toml merge, env var install, model catalog sync); agent-harness bootstraps or maintains a repository's AGENTS.md, knowledge maps, and execution plans.",
+    "developerName": "Justin Barias",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Read", "Write"],
+    "defaultPrompt": [
+      "Point Codex at my LiteLLM gateway and sync the model catalog",
+      "Bootstrap this repository's agent harness"
+    ]
+  }
+}

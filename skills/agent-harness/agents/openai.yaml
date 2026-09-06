@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Harness"
+  short_description: "Bootstrap and maintain repository agent guidance"
+  default_prompt: "Use $agent-harness to inspect this repository and bootstrap or maintain its agent knowledge base."
