@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: port-inflection
+expected_outcome: |
+  A .NET 10 solution in dotnet/ that ports every public function of the
+  inflection library with the same behaviour as the Python original. It
+  builds with warnings as errors, its ported tests pass, a console project
+  answers JSON-line calls, and a parity check compares the C# with outputs
+  taken from the Python code. No stubs or port TODOs remain. SUMMARY.md says
+  what was checked and what is unfinished.
