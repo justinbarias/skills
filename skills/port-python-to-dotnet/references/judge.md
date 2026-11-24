@@ -50,6 +50,16 @@ The runner takes the build to test as an argument. Against Python every case mus
 
 Against the .NET build, keep `port/judge/expected-failures.txt` with one case name per line. At the start every case is in it. A run passes when the set of failing cases equals the file. Remove a line when its case passes, so the file shrinks to empty by the end of phase 7. A case that passes while still listed fails the run, which keeps the file accurate.
 
+## Paths the judge cannot reach
+
+The judge sees only what the command or the HTTP interface exposes. A library also has public surface that never passes through it: exception constructors and their properties, callback arguments, overloads that take streams or bytes, equality and hashing of returned types. A port can match on every judge case and still differ there.
+
+List that surface in `port/GAPS.md` during phase 3. For each item, record expected values from Python with a script in `port/tools/` and check them in unit tests. Reviewers should be told which paths the judge does not cover so they probe those first.
+
+## Adding cases after the gate
+
+Reviewers will find inputs the judge lacks. Adding them is allowed without reopening gate 2 when all of these hold: cases are only added, never changed or removed; golden output is recorded again from the unchanged Python source; every old case still has the same golden output; and the number in `count.txt` goes up. Write what was added and why in `port/DECISIONS.md`. Any other change to the judge needs the user.
+
 ## What the judge does not prove
 
 Passing means the two builds agree on the cases you have. Teams that ported large codebases with a full pass of their existing tests still found regressions afterwards. Plan for that: keep the Python build runnable after cutover and add a case to the judge for every difference found later.

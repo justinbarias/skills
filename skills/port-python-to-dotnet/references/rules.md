@@ -26,6 +26,7 @@ These are the risky ones. Wrong code still builds and still passes simple tests.
 | `/` on two ints gives a float | `/` on two ints gives an int | Cast to `double` first |
 | `round(2.5)` is `2` (rounds half to even) | `Math.Round(2.5)` is `2`, but `(int)2.5` cuts off and `2.5.ToString("F0")` gives `3` | Call `Math.Round` with `MidpointRounding.ToEven`. Do not round by casting or formatting |
 | `len(s)`, `s[i]` and slices count code points | `Length` and indexers count UTF-16 units | Use `PyCompat` rune helpers for any length, index, slice or truncation on user text |
+| `pos += 2` or `s[pos:pos + 2]` steps over two code points, whatever they are | The same code steps over two UTF-16 units and can stop inside an emoji | A scanner may keep UTF-16 positions while it steps over characters it has tested and knows are ASCII. A fixed-width step or slice over text it has not looked at must count code points. Check every such step, and convert positions to code points before they reach output such as an error's line and column |
 | String formatting ignores locale | `ToString()` and `string.Format` use the current culture | Pass `CultureInfo.InvariantCulture`. Compare with `StringComparison.Ordinal` |
 | `if x:` is false for `None`, `0`, `""` and empty containers | A condition must be `bool` | Write the exact test meant: `is not null`, `!= 0`, `Count > 0`, `!string.IsNullOrEmpty` |
 | `x or default` | `x ?? default` only covers null | Use `??` only when `x` cannot be `0`, `""` or empty. Otherwise write the full condition |

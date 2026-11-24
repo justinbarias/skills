@@ -28,7 +28,7 @@ These hold in every phase. If the conversation was compacted, read this section 
 | `port/RULES.md` | The rulebook: how each Python pattern becomes C# | The lead session, never an implementer |
 | `port/GAPS.md` | Python constructs with no direct C# form, and the chosen answer | The lead session |
 | `port/queue.json` | Every module in port order, with a status | Implementers change `status`, `target` and `notes` only |
-| `port/judge/` | Parity checks and golden files recorded from Python | Nobody after gate 2, unless the user approves |
+| `port/judge/` | Parity checks and golden files recorded from Python | After gate 2, the lead may add cases under the rule in `references/judge.md`. Any other change needs the user |
 
 Statuses in the queue are `todo`, `in_progress`, `built`, `tests_pass`, `parity_pass`, `reviewed` and `blocked`.
 
@@ -73,7 +73,7 @@ Gate 2: the user reviews the judge and the break test results. After this gate `
 
 Complete the type hints in the Python code where they are missing, because every C# member needs a type. Change nothing else in the Python source. Keep these changes apart from the port: in their own commits if the source is in git, or listed file by file in `port/STATE.md` if it is not. Rerun the Python tests and the judge after them.
 
-Write `port/GAPS.md`. List each place where Python does something C# cannot say directly: duck-typed calls that need an interface, decorators, monkeypatching in tests, module-level state, generators that use `send()`, and import cycles. The queue marks cycles with `"cycle": true`. Decide the answer for each gap.
+Write `port/GAPS.md`. Include the public surface the judge cannot reach, as `references/judge.md` describes. List each place where Python does something C# cannot say directly: duck-typed calls that need an interface, decorators, monkeypatching in tests, module-level state, generators that use `send()`, and import cycles. The queue marks cycles with `"cycle": true`. Decide the answer for each gap.
 
 ### 4. Rulebook and scaffold
 
@@ -83,7 +83,9 @@ Create the .NET solution from [references/scaffold.md](references/scaffold.md). 
 
 ### 5. Pilot
 
-Pick three to five modules of different kinds, for example a model file, an async service and a CLI command. Port them using only `port/RULES.md`. Read the results closely with the user, fix the rules, then delete the pilot C#. Repeat if the rules changed a lot.
+Pick three to five modules of different kinds, for example a model file, an async service and a CLI command. In a package with fewer than about ten modules, one or two is enough. Port them using only `port/RULES.md`. Read the results closely with the user and fix the rules.
+
+Then decide what to do with the pilot C#. If a rule changed in a way that the pilot output does not already follow, delete that output and port it again in phase 6, because code written under old rules will not match the rest. If every rule you added only writes down what the pilot output already does, keep it and say so in `port/STATE.md`. Repeat the pilot if the rules changed a lot.
 
 Gate 3: the user approves `port/RULES.md`.
 
@@ -102,7 +104,7 @@ For each unit:
 
 Give each implementer a single unit, the rulebook, the Python file and the list of files it owns. Tell it the standing rules. Implementers may not change `port/RULES.md` or `port/judge/`.
 
-Review each unit with two reviewers that start with a fresh context. Give each one the Python file, the C# file and `port/RULES.md`, and ask for every difference in behaviour, with the input that shows it. Ask them to check empty, zero, negative and non-ASCII inputs. If the two disagree, a third reviewer decides. A finding that points to a missing rule goes back to the rulebook under standing rule 6.
+Review each unit with two reviewers that start with a fresh context. Give each one the Python file, the C# file, `port/RULES.md` and `port/GAPS.md`, and ask for every difference in behaviour, with the input that shows it. Give them the commands to run both builds, so they confirm a suspicion by running it. Point them at the paths the judge does not cover. The gap list is the lead's own work and can be wrong, so ask reviewers to challenge it too. Ask them to check empty, zero, negative and non-ASCII inputs. If the two disagree, a third reviewer decides. A finding that points to a missing rule goes back to the rulebook under standing rule 6.
 
 ### 7. Match behaviour
 
