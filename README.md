@@ -8,6 +8,7 @@ Agent skills by Justin Barias, packaged so one repo installs into Claude Code, C
 |---|---|
 | [`codex-litellm-setup`](skills/codex-litellm-setup/SKILL.md) | Point the Codex CLI at a LiteLLM gateway: merge the provider into `config.toml` without clobbering existing settings, install the API-key env var into the shell rc, and generate `models.json` from the gateway's `/v1/models` so the model picker shows gateway models. Ships the merge, env-var, and catalog-sync scripts. |
 | [`agent-harness`](skills/agent-harness/SKILL.md) | Bootstrap or maintain a repository's agent harness: concise `AGENTS.md`, architecture and knowledge maps, execution plans, and drift checks. |
+| [`port-python-to-dotnet`](skills/port-python-to-dotnet/SKILL.md) | Port a Python repository to C# on .NET with coding agents: build a parity judge first, write a Python-to-C# rulebook, pilot, translate from an on-disk queue in dependency order, review each unit against its original, then cut over. Ships the queue builder and a scanner for stubs and switched-off checks. |
 
 ## Install
 
