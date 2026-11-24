@@ -6,7 +6,7 @@ checks, and product code that shells out to Python. Exits 1 when anything
 is found, so it can gate a unit or a CI run.
 
 Usage:
-    python scan_port.py CSHARP_DIR [--exclude PART ...]
+    python scan_port.py CSHARP_DIR [--exclude PART ...] [--allow-todo]
 
 Example:
     python scan_port.py dotnet/src --exclude /obj/ --exclude /bin/
@@ -14,6 +14,10 @@ Example:
 --exclude skips any file whose path contains the given text. Use it for
 build output and for the judge's own tests, which are allowed to start
 the Python implementation.
+
+--allow-todo still prints every TODO(port) marker but does not fail on
+them. Use it while blocked units remain, and check the printed markers
+against the blocked list in port/STATE.md.
 """
 
 from __future__ import annotations
@@ -59,6 +63,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("root", type=Path)
     parser.add_argument("--exclude", action="append", default=[], help="skip paths containing this text")
+    parser.add_argument("--allow-todo", action="store_true", help="report TODO(port) markers without failing")
     args = parser.parse_args()
 
     if not args.root.is_dir():
@@ -66,6 +71,7 @@ def main() -> int:
         return 2
 
     total = 0
+    todos = 0
     files = 0
     for path in sorted(args.root.rglob("*.cs")):
         text = path.as_posix()
@@ -74,10 +80,12 @@ def main() -> int:
         files += 1
         for number, label, line in scan(path):
             total += 1
+            todos += label == "port TODO"
             print(f"{path}:{number}: {label}: {line}")
 
-    print(f"{files} files scanned, {total} findings")
-    return 1 if total else 0
+    print(f"{files} files scanned, {total} findings, {todos} of them port TODO markers")
+    failing = total - todos if args.allow_todo else total
+    return 1 if failing else 0
 
 
 if __name__ == "__main__":

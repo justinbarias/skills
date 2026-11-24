@@ -20,6 +20,8 @@ Some logic has no network or model in it: loading YAML into validated config, pr
 
 Run Python as a separate process. Embedding Python inside the .NET process adds a second runtime to debug and is not needed for a comparison.
 
+Keep the Python command thin. It decodes the case, calls the real function with exactly the arguments given, and prints the result or the exception's class name. It must not check argument types, fill in defaults, catch and rewrite errors, or tidy the output. Any check you add there becomes the behaviour the port is judged against, and the port can then pass the judge while differing from the library. Callers pass Python functions values the type hints do not allow, such as a string where an `int` is expected, so include such cases and let the library decide what happens.
+
 ### 3. The model boundary
 
 Model replies change from run to run, so compare one level below them. Point both builds at a stub provider and compare the request each one sends: the messages, the tool schemas and the settings. Then give both builds the same scripted fake model replies and compare the events they emit.
@@ -44,7 +46,9 @@ Print the number of cases run at the end of each run, and fail the run if that n
 
 ## Tracking progress
 
-Keep `port/judge/expected-failures.txt` with one case name per line. At the start every case is in it. A run passes when the set of failing cases equals the file. Remove a line when its case passes, so the file shrinks to empty by the end of phase 7. A case that passes while still listed fails the run, which keeps the file accurate.
+The runner takes the build to test as an argument. Against Python every case must pass, and the expected-failures file is not read. That is the mode for recording golden files and for the break tests.
+
+Against the .NET build, keep `port/judge/expected-failures.txt` with one case name per line. At the start every case is in it. A run passes when the set of failing cases equals the file. Remove a line when its case passes, so the file shrinks to empty by the end of phase 7. A case that passes while still listed fails the run, which keeps the file accurate.
 
 ## What the judge does not prove
 

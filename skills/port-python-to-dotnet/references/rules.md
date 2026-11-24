@@ -36,6 +36,43 @@ These are the risky ones. Wrong code still builds and still passes simple tests.
 | `str` vs `bytes` | `string` vs `byte[]` or `ReadOnlySpan<byte>` | Encode and decode with `Encoding.UTF8` named at each boundary |
 | `datetime.now()` is naive local time | `DateTime.Now` is local with a kind flag | Use `DateTimeOffset` and take the clock from `TimeProvider` |
 
+## Regular expressions
+
+Python's `re` and .NET's `Regex` look alike and differ in details that change output. Translate each pattern by hand, keep the Python pattern in a comment above it, and give every translated pattern its own judge cases.
+
+| Python | C# | Rule |
+| --- | --- | --- |
+| `re.match(p, s)` | No direct form | `Regex.Match` with `\A` in front of the pattern |
+| `re.fullmatch(p, s)` | No direct form | Wrap as `\A(?:p)\z` |
+| `re.search`, `re.findall`, `re.finditer` | `Match`, `Matches` | `findall` returns groups when the pattern has them. Check which the code uses |
+| `\Z` means the very end | `\Z` also matches before a final newline | Write `\z` |
+| `(?P<name>...)`, `(?P=name)` | `(?<name>...)`, `\k<name>` | Rewrite |
+| Replacement `\1`, `\g<1>`, `\g<name>` | `$1`, `${1}`, `${name}` | Rewrite. A literal `$` in a .NET replacement is `$$` |
+| Replacement text that comes from data | A `$` in it is read as a group reference | Use a `MatchEvaluator`, and handle Python's own backslash escapes in the data as Python does |
+| `re.sub(p, r, s, count=n)` | `new Regex(p).Replace(s, r, n)` | The static method has no count |
+| `re.IGNORECASE` | `RegexOptions.IgnoreCase` uses culture rules | Add `RegexOptions.CultureInvariant`. A few characters still differ, such as the Kelvin sign and dotless i. Add judge cases if input can be outside ASCII |
+| `re.ASCII` | No flag | Use `RegexOptions.ECMAScript`, or write the ASCII classes out |
+| `re.VERBOSE`, `re.DOTALL`, `re.MULTILINE` | `IgnorePatternWhitespace`, `Singleline`, `Multiline` | Direct |
+| `\w`, `\b` on Unicode text | .NET's `\w` also accepts combining marks and connector punctuation | Write the class out if input can be outside ASCII |
+| `.` matches one code point | `.` matches one UTF-16 unit | An emoji is two matches. Use an explicit surrogate-pair pattern where it matters |
+| Possessive quantifiers `*+`, `++` | Not supported | Rewrite as an atomic group `(?>...)` |
+| A compiled pattern at module level | A `static readonly Regex`, or `[GeneratedRegex]` | Do not build a `Regex` inside a loop |
+
+## Text and Unicode
+
+| Python | C# | Rule |
+| --- | --- | --- |
+| `s.lower()`, `s.upper()` use full case mapping (`"ß".upper()` is `"SS"`, final sigma) | `ToLowerInvariant` and `ToUpperInvariant` map one character to one | Fine for ASCII. For other text use a `PyCompat` helper built from Python's tables |
+| `s.title()`, `s.capitalize()`, `s.casefold()` | No built-in equivalent | Use a `PyCompat` helper |
+| `s.isalnum()`, `s.isdigit()`, `s.isspace()` | `char.IsLetterOrDigit` and friends use different sets | Use a `PyCompat` helper where the result reaches output |
+| `s.split()` with no argument splits on runs of whitespace and drops empties | `Split()` keeps empties | Pass `StringSplitOptions.RemoveEmptyEntries`, and check the whitespace set |
+| `s.strip()` | `Trim()` | The whitespace sets differ slightly outside ASCII |
+| `unicodedata.normalize(form, s)` | `s.Normalize(NormalizationForm...)` | Results depend on the Unicode version each runtime ships. Record both versions in `port/DECISIONS.md` |
+| `s.encode("ascii", "ignore")` | No one-call form | Filter to code points below 128, then encode |
+| A string can hold a lone surrogate | So can a `string`, but a high and a low surrogate side by side read as one character | Rare. Note it in `GAPS.md` if the code handles raw surrogates |
+
+When exact output on non-ASCII text matters, generate the lookup tables from the pinned Python build with a script, commit the script, and test the helper against values recorded from Python.
+
 ## Types
 
 | Python | C# |
@@ -103,7 +140,7 @@ Never block on a task with `.Result` or `.Wait()`.
 | `zip(a, b)` | `a.Zip(b)`. Both stop at the shorter input |
 | `sorted(xs, key=f)` | `xs.OrderBy(f)`. Both sorts are stable |
 
-Map each Python exception class to one C# exception class in `port/RULES.md` and keep the hierarchy. Do not replace exceptions with result types before phase 9.
+Map each Python exception class to one C# exception class in `port/RULES.md` and keep the hierarchy. C# exception names end in `Exception`, and the analyzers enforce it, so `ConfigError` becomes `ConfigException`. For built-in errors use the nearest .NET type: `ValueError` to `ArgumentException`, `KeyError` to `KeyNotFoundException`, `IndexError` to `ArgumentOutOfRangeException` or `IndexOutOfRangeException`, `TypeError` to `ArgumentException`, `NotImplementedError` to `NotSupportedException`. If the judge compares error names, keep one table that maps each C# type back to its Python name at the boundary. Do not replace exceptions with result types before phase 9.
 
 ## Decorators
 
@@ -135,7 +172,7 @@ Port each test with the module it covers and keep the test names. Do not drop a 
 
 ## Module state and startup
 
-Module-level singletons, registries and config objects become services registered in the dependency injection container. Code that runs on import becomes an explicit startup call. Write each one in `GAPS.md` first, because import order in Python can hide a dependency that C# needs you to state.
+Module-level singletons, registries and config objects become services registered in the dependency injection container. In a small library with no container they become static fields with initialisers. Code that runs on import becomes an explicit startup call or a static field initialiser. Do not use a static constructor, which the analyzers reject. Write each one in `GAPS.md` first, because import order in Python can hide a dependency that C# needs you to state.
 
 ## Not allowed
 

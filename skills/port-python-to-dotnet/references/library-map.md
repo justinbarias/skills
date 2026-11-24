@@ -28,6 +28,26 @@ Wrong library calls are the largest measured cause of failed translations, so se
 | `sqlalchemy` | EF Core, or Dapper for hand-written SQL | A large gap. Query behaviour needs its own judge cases |
 | `numpy`, `pandas` | No like-for-like answer | Usually a reason to keep that part in Python |
 
+## Standard library
+
+| Python | .NET | Notes |
+| --- | --- | --- |
+| `re` | `System.Text.RegularExpressions` | Syntax and matching differ. Follow the regex rules in the rulebook |
+| `unicodedata`, `str` case methods | `string.Normalize`, `Rune`, `CharUnicodeInfo` | Results can differ by Unicode version. See the text rules in the rulebook |
+| `json` | `System.Text.Json` | Python writes non-ASCII as `\u` escapes and adds spaces after separators by default. Decide what the judge compares |
+| `datetime`, `zoneinfo` | `DateTimeOffset`, `DateOnly`, `TimeOnly`, `TimeZoneInfo` | Python has microseconds, .NET has 100-nanosecond ticks |
+| `decimal` | `decimal` | .NET's has 28 to 29 digits. Python's precision is configurable |
+| `fractions`, big `int` | `BigInteger` | No built-in rational type |
+| `pathlib`, `os.path` | `System.IO.Path`, `FileInfo`, `DirectoryInfo` | Path separators and case rules follow the OS in both |
+| `subprocess` | `System.Diagnostics.Process` | |
+| `collections.OrderedDict`, `defaultdict`, `Counter`, `deque` | `OrderedDictionary<,>`, a helper over `Dictionary`, `CountBy`, `LinkedList` or `Queue` | |
+| `functools.lru_cache` | A `ConcurrentDictionary` or `IMemoryCache` | Python's cache is per process and unbounded when `maxsize=None` |
+| `itertools` | LINQ, `Chunk`, `Zip` | Check laziness. LINQ re-runs a query each time it is enumerated |
+| `enum` | `enum` | See the types table in the rulebook |
+| `dataclasses`, `typing.NamedTuple` | `record` | |
+| `argparse` | `System.CommandLine` | Help text will differ |
+| `logging` | `Microsoft.Extensions.Logging` | |
+
 ## Model providers and agent libraries
 
 | Python | .NET | Notes |

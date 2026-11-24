@@ -15,9 +15,9 @@ These hold in every phase. If the conversation was compacted, read this section 
 2. Never edit the judge, its golden files or the Python source to make a check pass. If a check looks wrong, stop and tell the user.
 3. A unit is done when the commands say so. Your own reading of the code does not count as proof.
 4. Keep the structure of the source. One Python module becomes one C# file with the same names in the same order. Make no improvements before phase 9.
-5. Do not write stubs or simplified versions, and do not call the Python code from product code. If you cannot port something, mark it `// TODO(port): <reason>`, set the unit to `blocked` and move on.
+5. Do not write stubs or simplified versions, and do not call the Python code from product code. If you cannot port something, mark it `// TODO(port): <reason>`, set the unit to `blocked`, list it in `port/STATE.md` and move on. The port is not finished while any marker remains, unless the user accepts each one by name.
 6. When the same mistake shows up twice, change `port/RULES.md` and redo the units it affects. Do not patch the output by hand.
-7. Stop at every human gate and wait for the user.
+7. Stop at every human gate and wait for the user. If the user has told you to keep going without them, write what you decided and why in `port/DECISIONS.md` under the gate's name, continue, and list those decisions first in your final report.
 
 ## Files
 
@@ -43,7 +43,7 @@ Split the work by role and give each role the model that fits it. Writing rules 
 | Fixer | Clear build errors that share a cause, phase 7 | Sonnet |
 | Reviewer | Compare one unit with its Python original in a fresh context | Opus |
 
-The session that loads this skill is the lead. Start implementers, fixers and reviewers as subagents with the model set as above. If the user names other models, use theirs. If you cannot start subagents or cannot choose their model, do each role yourself in turn and note that in `port/STATE.md`, because a review by the same context that wrote the code is weaker.
+The session that loads this skill is the lead, and it has to be the main session, because a subagent cannot start subagents of its own. Start implementers, fixers and reviewers as subagents with the model set as above. If the user names other models, use theirs. If you cannot start subagents or cannot choose their model, do each role yourself in turn and note that in `port/STATE.md`, because a review by the same context that wrote the code is weaker.
 
 ## Phases
 
@@ -65,13 +65,13 @@ Gate 1: the user approves `port/DECISIONS.md`.
 
 Build the parity checks before any C# exists. Follow [references/judge.md](references/judge.md). The judge must be able to run against both the Python program and the .NET program from the outside.
 
-Then prove it works. It must pass against Python. Break the Python code on purpose in three or more places, one at a time, and confirm that the judge fails each time. Undo each break. Record what you broke and what the judge reported in `port/STATE.md`.
+Then prove it works. Every case must pass against Python. Break the Python code on purpose in three or more places, one at a time, and confirm that the judge fails each time. Undo each break. Record what you broke and what the judge reported in `port/STATE.md`.
 
 Gate 2: the user reviews the judge and the break test results. After this gate `port/judge/` is read-only.
 
 ### 3. Prepare the source
 
-Complete the type hints in the Python code where they are missing, because every C# member needs a type. Keep these changes in their own commits and rerun the Python tests and the judge after them.
+Complete the type hints in the Python code where they are missing, because every C# member needs a type. Change nothing else in the Python source. Keep these changes apart from the port: in their own commits if the source is in git, or listed file by file in `port/STATE.md` if it is not. Rerun the Python tests and the judge after them.
 
 Write `port/GAPS.md`. List each place where Python does something C# cannot say directly: duck-typed calls that need an interface, decorators, monkeypatching in tests, module-level state, generators that use `send()`, and import cycles. The queue marks cycles with `"cycle": true`. Decide the answer for each gap.
 
@@ -112,9 +112,9 @@ Fix build errors in groups that share a cause. Start the CLI and the server and 
 python <skill-dir>/scripts/scan_port.py <dotnet-src> --exclude /obj/ --exclude /bin/
 ```
 
-It must report no findings. Add the judge and the scanner to CI as merge checks. The count of judge checks must never go down between runs.
+It must report no findings. While blocked units remain, run it with `--allow-todo`, which still fails on everything except `TODO(port)` markers and prints each marker so you can check it against the blocked list in `port/STATE.md`. Add the judge and the scanner to CI as merge checks. The count of judge checks must never go down between runs.
 
-Gate 4: the user sees the full judge pass and the clean scan.
+Gate 4: the user sees the full judge pass and the scan result, and accepts or rejects each remaining `TODO(port)` marker.
 
 ### 8. Cut over
 
