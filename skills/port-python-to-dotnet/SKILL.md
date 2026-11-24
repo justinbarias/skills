@@ -32,6 +32,19 @@ These hold in every phase. If the conversation was compacted, read this section 
 
 Statuses in the queue are `todo`, `in_progress`, `built`, `tests_pass`, `parity_pass`, `reviewed` and `blocked`.
 
+## Roles and models
+
+Split the work by role and give each role the model that fits it. Writing rules and finding behaviour differences need the most careful reasoning. Following a finished rulebook on one file does not, and there are many files, so a faster and cheaper model is the right choice there.
+
+| Role | Work | Model |
+| --- | --- | --- |
+| Lead | Scope, judge design, gap list, rulebook, rule changes, settling reviewer disagreements | Opus |
+| Implementer | Port one unit by following the rulebook, phases 5 and 6 | Sonnet |
+| Fixer | Clear build errors that share a cause, phase 7 | Sonnet |
+| Reviewer | Compare one unit with its Python original in a fresh context | Opus |
+
+The session that loads this skill is the lead. Start implementers, fixers and reviewers as subagents with the model set as above. If the user names other models, use theirs. If you cannot start subagents or cannot choose their model, do each role yourself in turn and note that in `port/STATE.md`, because a review by the same context that wrote the code is weaker.
+
 ## Phases
 
 ### 1. Scope and gaps
@@ -87,7 +100,7 @@ For each unit:
 5. Run the judge checks that cover the unit. On success set `parity_pass`.
 6. Send the unit to review (below). On success set `reviewed`.
 
-When you run implementers as subagents, give each one a single unit, the rulebook, the Python file and the list of files it owns. Tell it the standing rules. Implementers may not change `port/RULES.md` or `port/judge/`.
+Give each implementer a single unit, the rulebook, the Python file and the list of files it owns. Tell it the standing rules. Implementers may not change `port/RULES.md` or `port/judge/`.
 
 Review each unit with two reviewers that start with a fresh context. Give each one the Python file, the C# file and `port/RULES.md`, and ask for every difference in behaviour, with the input that shows it. Ask them to check empty, zero, negative and non-ASCII inputs. If the two disagree, a third reviewer decides. A finding that points to a missing rule goes back to the rulebook under standing rule 6.
 
