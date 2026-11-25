@@ -1,0 +1,473 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-24T23:39:15Z",
+  "title": "Design System: Command center",
+  "extensions": {
+    "colorMeta": {
+      "ground": {
+        "role": "neutral",
+        "displayName": "Ground",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#b3b3b3",
+          "#d9d9d9",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff"
+        ]
+      },
+      "sunk": {
+        "role": "neutral",
+        "displayName": "Sunk",
+        "canonical": "#f1f4f8",
+        "tonalRamp": [
+          "#a9abae",
+          "#cdcfd3",
+          "#f1f4f8",
+          "#f9fbfc",
+          "#fcfcfd",
+          "#fdfdfe",
+          "#fefefe",
+          "#ffffff"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Navy Ink",
+        "canonical": "#0b1f3a",
+        "tonalRamp": [
+          "#081629",
+          "#091a31",
+          "#0b1f3a",
+          "#9da5b0",
+          "#c2c7ce",
+          "#dadde1",
+          "#ebedef",
+          "#f8f8f9"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "#42546f",
+        "tonalRamp": [
+          "#2e3b4e",
+          "#38475e",
+          "#42546f",
+          "#b3bbc5",
+          "#d0d4db",
+          "#e3e5e9",
+          "#f0f1f3",
+          "#f9fafb"
+        ]
+      },
+      "faint": {
+        "role": "neutral",
+        "displayName": "Faint",
+        "canonical": "#5b6c86",
+        "tonalRamp": [
+          "#404c5e",
+          "#4d5c72",
+          "#5b6c86",
+          "#bdc4cf",
+          "#d6dae1",
+          "#e6e9ed",
+          "#f2f3f5",
+          "#fafbfb"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#c9d2df",
+        "tonalRamp": [
+          "#8d939c",
+          "#abb3be",
+          "#c9d2df",
+          "#e9edf2",
+          "#f2f4f7",
+          "#f7f8fa",
+          "#fbfbfc",
+          "#fdfefe"
+        ]
+      },
+      "rail": {
+        "role": "neutral",
+        "displayName": "Rail Navy",
+        "canonical": "#0b1f3a",
+        "tonalRamp": [
+          "#081629",
+          "#091a31",
+          "#0b1f3a",
+          "#9da5b0",
+          "#c2c7ce",
+          "#dadde1",
+          "#ebedef",
+          "#f8f8f9"
+        ]
+      },
+      "here-tint": {
+        "role": "neutral",
+        "displayName": "Here Tint",
+        "canonical": "#fff1c9",
+        "tonalRamp": [
+          "#b3a98d",
+          "#d9cdab",
+          "#fff1c9",
+          "#fff9e9",
+          "#fffcf2",
+          "#fffdf7",
+          "#fffefb",
+          "#fffffd"
+        ]
+      },
+      "signal": {
+        "role": "primary",
+        "displayName": "Signal Red",
+        "canonical": "#d6001c",
+        "tonalRamp": [
+          "#960014",
+          "#b60018",
+          "#d6001c",
+          "#ef99a4",
+          "#f5bfc6",
+          "#f9d9dd",
+          "#fcebed",
+          "#fef7f8"
+        ]
+      },
+      "signal-strong": {
+        "role": "primary",
+        "displayName": "Deep Signal Red",
+        "canonical": "#a80016",
+        "tonalRamp": [
+          "#76000f",
+          "#8f0013",
+          "#a80016",
+          "#dc99a2",
+          "#e9bfc5",
+          "#f2d9dc",
+          "#f8ebec",
+          "#fcf7f8"
+        ]
+      },
+      "focus": {
+        "role": "tertiary",
+        "displayName": "Focus Blue",
+        "canonical": "#0057b8",
+        "tonalRamp": [
+          "#003d81",
+          "#004a9c",
+          "#0057b8",
+          "#99bce3",
+          "#bfd5ed",
+          "#d9e6f4",
+          "#ebf2f9",
+          "#f7fafd"
+        ]
+      },
+      "line-green": {
+        "role": "secondary",
+        "displayName": "Line Green",
+        "canonical": "#00843d",
+        "tonalRamp": [
+          "#005c2b",
+          "#007034",
+          "#00843d",
+          "#99ceb1",
+          "#bfe0ce",
+          "#d9ede2",
+          "#ebf5ef",
+          "#f7fbf9"
+        ]
+      },
+      "line-blue": {
+        "role": "secondary",
+        "displayName": "Line Blue",
+        "canonical": "#0057b8",
+        "tonalRamp": [
+          "#003d81",
+          "#004a9c",
+          "#0057b8",
+          "#99bce3",
+          "#bfd5ed",
+          "#d9e6f4",
+          "#ebf2f9",
+          "#f7fafd"
+        ]
+      },
+      "line-amber": {
+        "role": "secondary",
+        "displayName": "Line Amber",
+        "canonical": "#c08800",
+        "tonalRamp": [
+          "#865f00",
+          "#a37400",
+          "#c08800",
+          "#e6cf99",
+          "#efe1bf",
+          "#f6edd9",
+          "#faf5eb",
+          "#fdfbf7"
+        ]
+      },
+      "line-violet": {
+        "role": "secondary",
+        "displayName": "Line Violet",
+        "canonical": "#6b3fa0",
+        "tonalRamp": [
+          "#4b2c70",
+          "#5b3688",
+          "#6b3fa0",
+          "#c4b2d9",
+          "#dacfe7",
+          "#e9e2f1",
+          "#f3f0f7",
+          "#fbf9fc"
+        ]
+      },
+      "line-teal": {
+        "role": "secondary",
+        "displayName": "Line Teal",
+        "canonical": "#007a82",
+        "tonalRamp": [
+          "#00555b",
+          "#00686f",
+          "#007a82",
+          "#99cacd",
+          "#bfdee0",
+          "#d9ebec",
+          "#ebf4f5",
+          "#f7fbfb"
+        ]
+      },
+      "line-orange": {
+        "role": "secondary",
+        "displayName": "Line Orange",
+        "canonical": "#c2410c",
+        "tonalRamp": [
+          "#882e08",
+          "#a5370a",
+          "#c2410c",
+          "#e7b39e",
+          "#f0d0c2",
+          "#f6e2db",
+          "#faf0ec",
+          "#fdf9f8"
+        ]
+      },
+      "line-magenta": {
+        "role": "secondary",
+        "displayName": "Line Magenta",
+        "canonical": "#c2187a",
+        "tonalRamp": [
+          "#881155",
+          "#a51468",
+          "#c2187a",
+          "#e7a3ca",
+          "#f0c5de",
+          "#f6dceb",
+          "#faedf4",
+          "#fdf8fb"
+        ]
+      },
+      "line-brown": {
+        "role": "secondary",
+        "displayName": "Line Brown",
+        "canonical": "#8a5a2b",
+        "tonalRamp": [
+          "#613f1e",
+          "#754d25",
+          "#8a5a2b",
+          "#d0bdaa",
+          "#e2d6ca",
+          "#ede6df",
+          "#f6f2ee",
+          "#fbfaf9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "The one sentence that states where the project stands."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Task titles, notes, and descriptions."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Subheads, buttons, and definition terms."
+      }
+    },
+    "shadows": [
+      {
+        "name": "panel-edge",
+        "value": "-18px 0 40px -18px rgba(5, 13, 24, 0.45)",
+        "purpose": "Slide-over task panel below 1280px."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Marker slide at 1.1s, segment fade at 0.2s, stop scale at 0.18s, panel slide at 0.26s. All off under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "rail-collapse",
+        "value": "900px"
+      },
+      {
+        "name": "panel-docked",
+        "value": "1280px"
+      },
+      {
+        "name": "container-narrow",
+        "value": "860px (main container)"
+      },
+      {
+        "name": "container-narrowest",
+        "value": "520px (main container)"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Send to Claude. Signal red, the only primary action.",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M13.5 2.5L7 9M13.5 2.5l-4 11L7 9 2.5 6.5z\"/></svg>Send to Claude</button>",
+      "css": ".ds-btn-primary{font-family:'Albert Sans',system-ui,sans-serif;display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:4px;border:1.5px solid #d6001c;background:#d6001c;color:#fff;font-weight:600;font-size:14px;cursor:pointer;transition:background .15s,border-color .15s} .ds-btn-primary:hover{background:#a80016;border-color:#a80016} .ds-btn-primary:focus-visible{outline:2px solid #0057b8;outline-offset:2px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Quiet action with an ink outline.",
+      "html": "<button class=\"ds-btn-secondary\">Copy prompt</button>",
+      "css": ".ds-btn-secondary{font-family:'Albert Sans',system-ui,sans-serif;display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:4px;border:1.5px solid #0b1f3a;background:#fff;color:#0b1f3a;font-weight:600;font-size:14px;cursor:pointer;transition:background .15s,border-color .15s} .ds-btn-secondary:hover{background:#f1f4f8;border-color:#0b1f3a} .ds-btn-secondary:focus-visible{outline:2px solid #0057b8;outline-offset:2px}"
+    },
+    {
+      "name": "Plan Pill",
+      "kind": "chip",
+      "refersTo": "line-pill",
+      "description": "Names a plan in its line color.",
+      "html": "<span class=\"ds-pill\">P2</span> <span class=\"ds-pill ds-amber\">P3</span>",
+      "css": ".ds-pill{font-family:'Albert Sans',system-ui,sans-serif;display:inline-block;min-width:46px;text-align:center;padding:3px 9px;border-radius:999px;background:#0057b8;color:#fff;font-size:12.5px;font-weight:700;line-height:1.3} .ds-amber{background:#c08800;color:#0b1f3a}"
+    },
+    {
+      "name": "Ring Glyph",
+      "kind": "custom",
+      "description": "One mark for task status. Done, in progress, blocked, ready, waits.",
+      "html": "<span class=\"ds-rings\"><svg viewBox=\"0 0 18 18\" width=\"24\" height=\"24\"><circle cx=\"9\" cy=\"9\" r=\"6\" fill=\"#0b1f3a\" stroke=\"#0057b8\" stroke-width=\"3\"/></svg><svg viewBox=\"0 0 18 18\" width=\"24\" height=\"24\"><circle cx=\"9\" cy=\"9\" r=\"6\" fill=\"#fff\" stroke=\"#0057b8\" stroke-width=\"3\"/><circle cx=\"9\" cy=\"9\" r=\"2.5\" fill=\"#0b1f3a\"/></svg><svg viewBox=\"0 0 18 18\" width=\"24\" height=\"24\"><circle cx=\"9\" cy=\"9\" r=\"6\" fill=\"#fff\" stroke=\"#0057b8\" stroke-width=\"3\"/><path d=\"M6.7 6.7l4.6 4.6M11.3 6.7l-4.6 4.6\" stroke=\"#0b1f3a\" stroke-width=\"1.8\" stroke-linecap=\"round\"/></svg><svg viewBox=\"0 0 18 18\" width=\"24\" height=\"24\"><circle cx=\"9\" cy=\"9\" r=\"6\" fill=\"#fff\" stroke=\"#0057b8\" stroke-width=\"3\" stroke-dasharray=\"2.3 2.4\"/></svg></span>",
+      "css": ".ds-rings{display:inline-flex;gap:8px}"
+    },
+    {
+      "name": "Line Track",
+      "kind": "custom",
+      "description": "A plan segment with stops, a waiting casing, and a gate station.",
+      "html": "<div class=\"ds-line\"><div class=\"ds-track\"></div><div class=\"ds-casing\"></div><span class=\"ds-knob\"></span></div>",
+      "css": ".ds-line{position:relative;width:280px;padding:6px 0 20px}.ds-track{height:12px;background:#0057b8;border-radius:6px 0 0 6px}.ds-casing{height:12px;margin-top:10px;background:color-mix(in srgb,#c08800 22%,#fff);box-shadow:inset 0 0 0 2.5px #c08800}.ds-knob{position:absolute;right:0;top:6px;width:24px;height:24px;border-radius:50%;background:#fff;border:4.5px solid #0b1f3a}"
+    },
+    {
+      "name": "Position Marker",
+      "kind": "custom",
+      "description": "Red label showing where the project stands.",
+      "html": "<span class=\"ds-here\">You are here</span>",
+      "css": ".ds-here{font-family:'Albert Sans',system-ui,sans-serif;position:relative;display:inline-block;padding:2px 9px;border-radius:3px;background:#d6001c;color:#fff;font-size:12.5px;font-weight:700} .ds-here::after{content:'';position:absolute;left:50%;margin-left:-6px;top:100%;border:6px solid transparent;border-top:8px solid #d6001c;border-bottom:0}"
+    },
+    {
+      "name": "Timetable Row",
+      "kind": "card",
+      "description": "Glyph, key, title, and action between hairlines.",
+      "html": "<div class=\"ds-row\"><svg viewBox=\"0 0 18 18\" width=\"18\" height=\"18\"><circle cx=\"9\" cy=\"9\" r=\"6\" fill=\"#fff\" stroke=\"#0057b8\" stroke-width=\"3\"/></svg><b>T-12</b><span>Port the search module<small>Plan P2</small></span></div>",
+      "css": ".ds-row{font-family:'Albert Sans',system-ui,sans-serif;display:grid;grid-template-columns:20px 6ch 1fr;gap:12px;align-items:center;width:360px;min-height:54px;padding:10px 8px;border-top:2px solid #0b1f3a;border-bottom:1px solid #c9d2df;color:#0b1f3a;font-size:15px} .ds-row:hover{background:#f1f4f8} .ds-row b{font-size:17px} .ds-row small{display:block;color:#42546f;font-size:13px}"
+    },
+    {
+      "name": "Rail Item",
+      "kind": "nav",
+      "description": "Plan entry in the navy rail. Pressed state inverts.",
+      "html": "<div class=\"ds-rail\"><div class=\"ds-rail-i\">P1 Foundation</div><div class=\"ds-rail-i ds-on\">P2 Engine</div></div>",
+      "css": ".ds-rail{font-family:'Albert Sans',system-ui,sans-serif;width:240px;padding:8px;background:#0b1f3a;color:#fff} .ds-rail-i{padding:10px 8px;border-top:1px solid #2c405c;font-weight:500;font-size:14.5px} .ds-rail-i:hover{background:#17304f} .ds-on{background:#fff;color:#0b1f3a}"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "description": "Ink outline, 4px radius.",
+      "html": "<input class=\"ds-input\" type=\"search\" placeholder=\"Search tasks\" aria-label=\"Search tasks\">",
+      "css": ".ds-input{font-family:'Albert Sans',system-ui,sans-serif;height:36px;padding:0 10px;border:1.5px solid #0b1f3a;border-radius:4px;background:#fff;color:#0b1f3a;font-size:15px} .ds-input:focus-visible{outline:2px solid #0057b8;outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Line Diagram",
+    "overview": "The page reads like a transit map. Each plan is a colored line. Each task is a stop on that line. Each gate is an interchange station. A red marker shows where the project stands now.\n\nBelow the diagram, the page reads like a printed timetable. Rows sit between rules, with no cards and no boxes. A navy rail at the left holds the line list, like a station sign.\n\nThe system is plain and exact. Ink is navy, not black. Color belongs to the lines and to one signal red. Type is one family at a few sizes.",
+    "keyCharacteristics": [
+      "One typeface, Albert Sans, embedded in the file, with tabular numerals everywhere.",
+      "Eight line colors give each plan an identity. They carry no meaning beyond identity.",
+      "Signal red marks the position marker and the primary action. Nothing else uses it.",
+      "Status is a ring glyph whose shape changes, so color never carries status alone.",
+      "Structure comes from ruled lines and whitespace. Surfaces are flat.",
+      "The dark theme follows the system. A link with `?theme=light` or `?theme=dark` fixes the theme."
+    ],
+    "rules": [
+      {
+        "name": "The One Signal Rule",
+        "body": "Signal red appears on the position marker and the primary action only. A new surface that needs emphasis uses ink, weight, or a rule.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ring Rule",
+        "body": "Status shows in the shape of the ring, never in color alone. Filled is done, a dot is in progress, a cross is blocked, a broken ring waits.",
+        "section": "colors"
+      },
+      {
+        "name": "The Line Color Rule",
+        "body": "A line color names a plan. It never means good, bad, or urgent.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sentence Case Rule",
+        "body": "All text is sentence case at normal letter spacing. Hierarchy comes from size and weight, never from capitals or tracking.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "Albert Sans is embedded as base64 and serves every text role. The page makes no network request for type.",
+        "section": "typography"
+      },
+      {
+        "name": "The Rule Over Box Rule",
+        "body": "Group content with a heavy top rule and hairlines. Do not wrap it in a bordered or shadowed card.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** keep red for the position marker and the primary action only.",
+      "**Do** pair every status color with a glyph shape, and write the status in text.",
+      "**Do** give each plan one line color and use it on the pill, track, ring, and group rule.",
+      "**Do** separate lists with a 2px ink top rule and 1px hairlines.",
+      "**Do** keep the page offline. Embed fonts and icons, and make no network request.",
+      "**Do** write all labels in sentence case at normal tracking.",
+      "**Do** keep text on the ground at 4.5:1 and ring strokes at 3:1 or better in both themes."
+    ],
+    "donts": [
+      "**Do not** use a line color to mean status or priority.",
+      "**Do not** put a card, a border box, or a heavy shadow around list content.",
+      "**Do not** add a second typeface or a decorative display face.",
+      "**Do not** use gradients, glass, or glow effects.",
+      "**Do not** rely on hover for anything that a keyboard reader needs.",
+      "**Do not** lighten the amber line color back to `#f2a900`. It fails 3:1 on white."
+    ]
+  }
+}
