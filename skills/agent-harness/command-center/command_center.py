@@ -42,6 +42,7 @@ DONE_MARK = re.compile(SENTENCE_START + r"Done,? (?:on )?(" + ISO + r")\b")
 BLOCKED_MARK = re.compile(SENTENCE_START + r"Blocked\b")
 ACTIVE_MARK = re.compile(SENTENCE_START + r"In progress\b")
 DONE_TAIL = re.compile(r"\s*\bDone,? (?:on )?" + ISO + r"\b[^.]*\.?\s*$")
+DONE_HEAD = re.compile(r"^\s*Done,? (?:on )?" + ISO + r"[.:]\s+(?=\S)")
 GENERIC_HEADINGS = re.compile(r"^(tasks?|task list|steps|plan|work|checklist)$", re.I)
 RESULT_HEADINGS = re.compile(r"^(results?|verification|evidence|log)\b", re.I)
 CHECKBOX = re.compile(r"^(\s*)(?:[-*+]|\d+[.)])\s+\[([ xX~!-])\]\s+(.*)$")
@@ -115,7 +116,7 @@ def plain(text: str) -> str:
 
 def short(text: str, limit: int = 72) -> str:
     """The first sentence of a task, without Markdown marks, cut between words to a row length."""
-    whole = DONE_TAIL.sub("", plain(text)).strip()
+    whole = DONE_TAIL.sub("", DONE_HEAD.sub("", plain(text))).strip() or plain(text).strip()  # the status mark is not part of the title
     first = re.split(r"(?<=\.)\s", whole, maxsplit=1)[0]
     if len(first) < 24:  # "Pilot." alone says too little
         first = whole
