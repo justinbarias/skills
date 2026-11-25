@@ -229,6 +229,13 @@ Station knobs are white circles with a 4.5px ink ring. A passed gate fills the k
 - **Done:** Key and title turn muted.
 - **In progress:** Tasks in progress sit in their own list above the ready tasks, and their rows have no send button.
 
+### Group Send
+- **Checkbox:** A ready row starts with a 20px square, 1.5px ink border, 3px radius, in a 44px hit area, 40px at 520px and below. Checked fills it with ink and shows a drawn check in the ground color. A selected row shows Sunk. If the ready list shows fewer than two tasks, the rows have no checkbox. A hidden live region announces the count and the task keys after each change.
+- **Limit:** At 5 selected tasks, the other checkboxes go to 35% opacity and the bar states the limit.
+- **Bar:** A strip under the ready list, between a 2px ink rule and a hairline. It holds the count, the task keys, and three controls. The controls are one primary "Send n tasks to Claude" button, a secondary copy button, and a text link that clears the selection. The prompt opens on demand in the same Sunk block as the task panel.
+- **One primary:** While a selection exists, the "Send to Claude" buttons in the rows turn secondary. The bar then holds the only signal red action in the list.
+- **Mobile:** The checkbox stays at the left of the row, and the buttons of the bar take their own line.
+
 ### Position Marker
 - **Style:** A red label with a downward pointer, set above the diagram at the last finished stop of the first plan that has open work. It slides to its place in 1.1 seconds. With reduced motion on, it does not move.
 
