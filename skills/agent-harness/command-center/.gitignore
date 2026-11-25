@@ -1,0 +1,6 @@
+# Impeccable working files. The surface brief and design.json stay in git.
+.impeccable/mocks/
+.impeccable/review/
+.impeccable/decision-payload.json
+.impeccable/brief-body.md
+.impeccable/questions/
