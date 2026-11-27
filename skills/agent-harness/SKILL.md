@@ -2,8 +2,9 @@
 name: agent-harness
 description: >-
   Bootstrap or maintain a repository's agent harness: concise AGENTS.md,
-  architecture and knowledge maps, execution plans, and drift checks. Use when
-  organizing agent instructions or keeping repository guidance aligned with code;
+  architecture and knowledge maps, execution plans, a verify skill, and drift
+  checks. Use when organizing agent instructions or keeping repository guidance
+  aligned with code;
   ordinary feature work alone does not trigger this skill.
 ---
 
@@ -42,6 +43,16 @@ Keep existing authorization in force. Complete requested branching, commits, and
 Describe implementation from inspected code and configuration. Treat old specs as historical claims until verified.
 Record unresolved differences with evidence and an exit criterion instead of presenting them as completed work.
 Prevent duplication: each durable fact has a canonical home, and maps link to that home.
+
+## Verify skill
+
+The harness includes a repository `verify` skill. An agent runs it before each commit to prove a change by running it.
+Bootstrap writes it. Maintain keeps its commands and its "Not built yet" table current. The mode references give the detail.
+These rules hold in every repository:
+
+- A claim of "verified" needs output from a command that ran in this session. Code inspection and an earlier result are not evidence.
+- The agent names each check that it did not run, and gives the reason.
+- A check is never weakened to make it pass. Do not skip a test, loosen an assertion, or edit a golden file.
 
 ## Command center
 

@@ -48,6 +48,7 @@ Preserve empty plan directories with the repository's normal tracked placeholder
 
 Keep `AGENTS.md` within 100 lines for this profile unless the user chooses another limit.
 Include the project purpose, links to authoritative documents, essential invariants, work loop, and relevant verification entry points.
+The work loop links to the repository `verify` skill and does not repeat its commands. [Write the verify skill](#write-the-verify-skill) gives its content.
 Move tutorials and extensive policy into linked documents. Preserve substantive rules while resolving duplication and contradictions.
 
 When Claude guidance is present or requested, consolidate shared guidance into `AGENTS.md` and make `CLAUDE.md` contain only `@AGENTS.md` plus a final newline.
@@ -85,6 +86,31 @@ Use feature indexes to connect requirements, design, and execution records witho
 Remove obsolete generators or custom commands only when their retirement is part of the requested replacement.
 When the user requests complete retirement, remove the tooling and its dedicated tests, rewrite obsolete instructions naturally, and search current, hidden, and historical repository files for remaining references.
 Preserve governing documents and unrelated editor settings. Do not turn a cleanup into deletion of still-used tools.
+
+## Write the verify skill
+
+The harness includes a repository `verify` skill. An agent runs it before each commit to prove a change by running it.
+Put it at `.claude/skills/verify/SKILL.md`, or at the path that the repository's agent tool reads.
+If the repository has a verify skill, update it to hold the parts below. Do not write a second one.
+
+The skill holds these parts:
+
+- A description that says when to use it: before each commit, and when a user asks to verify or prove a change.
+- Steps in order from cheap to costly. Static checks come first. Checks that need a service, slow suites, and end-to-end runs come last.
+- A small table that selects the steps by the kind of change. A documentation change needs no database or other service.
+- For each step, the exact command, what it proves, and the last line that a pass prints. Copy each command from the real scripts and `AGENTS.md`, and run it before you write it down.
+- The pass line from a run of that exact command with its exact flags. A flag can replace the summary. If the pass line holds counts, say which counts must be zero.
+- The steps that the main gate script already runs. Add a focused command for one unit or one test project, and do not repeat the gate.
+- Each order constraint between steps. For example, a check that reads a build output needs a build first.
+- The environment of each command: variables, a running service, and the path of each folder that a git worktree does not hold, such as an untracked upstream checkout.
+- For a service that other sessions share, the safe start command and the commands that no agent runs, such as a teardown or a data reset.
+- A "Not built yet" table for each feature that verify cannot cover today. Each row gives the feature, the reason, the plan task that builds it, and the step that the skill gains when it lands. That last column is the exit condition of the row.
+- The evidence rules in [SKILL.md](../SKILL.md), and the repository's own rules, such as a limit on fix attempts or a list of files that no change edits to make a check pass.
+- An instruction to name each "Not built yet" gap in the report, and never to claim it as verified.
+- The report form: each command with the last lines of its output, and each check that was not run with the reason.
+
+Keep the skill short, about 80 lines. Link to the testing and reliability documents for detail, and do not copy them.
+Before you finish, follow the skill from its first step for one kind of change. Fix each command that does not run as written.
 
 ## Verify and finish
 

@@ -17,6 +17,7 @@ Expand only when findings justify it. A single maintenance invocation does not i
 | Module boundary, provider route, dependency direction | Architecture map, the affected design decision, and an existing structural check when the enforced rule changes. |
 | User-visible behavior or acceptance criteria | Canonical product spec and relevant user guide; reconcile the plan with actual acceptance evidence. |
 | Setup, build, test, or operational command | The owning runbook and verification instructions after checking the real command definition. |
+| A feature lands, or a verify command changes | The repository `verify` skill: its steps, its selection table, and its "Not built yet" table, in the same change. |
 | Contract or schema source | Run its existing generator and refresh derived inventories; do not hand-edit generated output. |
 | A plan reaches completion | Record verification, move it to completed, and update links, status indexes, and migration-ledger destinations if present. |
 | Deferred or uncertain work | Keep it unresolved and record evidence, owner, and exit criterion in the relevant plan or debt tracker. |
@@ -36,9 +37,21 @@ For drift, trace the cause: a moved file, stale generator input, missing index l
 Repair the source of repeated drift where it is within scope. A generator that rewrites the root map should be fixed or retired when authorized, not repeatedly repaired after each run.
 Keep retirement and deletion limited to the user's scope and verified obsolete material.
 
+## Keep the verify skill current
+
+The change that builds a feature also updates the verify skill. Add the step that covers the feature, and run it.
+A row leaves the "Not built yet" table only when its step exists and passes in this session.
+When a command changes, change it in the verify skill in the same change.
+If the repository forbids a change that edits its own check, a rewrite of the verify skill goes in its own pull request.
+
+Drift check: each command of the verify skill exists and runs.
+Run each command. If a command is too costly to run, check that each script, target, and test project that it names exists.
+Report a missing or failing command as drift. Repair the command or the skill, and never weaken the check to make it pass.
+
 ## Verify and close the loop
 
 Run the repository's harness check if present; otherwise use a bounded link check for the edited documents.
+For a change to code or commands, follow the repository's verify skill and report in its form.
 For a moved document, check both its incoming and outgoing links.
 Check all ledger destinations when moving recorded migration artifacts.
 For documentation publishing changes, run the site build and address introduced warnings.
